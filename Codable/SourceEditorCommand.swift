@@ -13,29 +13,44 @@ import XcodeKit
 class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
+        
         let textRange = invocation.buffer.selections.firstObject as! XCSourceTextRange
         var startLine = textRange.start.line
         
-        let endRegex = """
-            .*\\{
-            """
-        let isPropertyRegex = ".*(let|var)\\s+.\\w+\\s*:(?!(.*(\\(|\\{|\\=)))"
-        let propertyRegex = "\\w+\\s*(:)"
+        let endRegex = ".+\\s*:\\s*.*\\{"
+        let propertyRegex = ".*(let|var)\\s+\\w+\\s*(:|=).+"
+        let propertyNamePartRegex = "\\w+\\s*(:|=)"
+        let propertyNameRegex = "\\w+"
         let uppercase = "A"..."Z"
         
-        var enumCase: [(key: String, value: String)] = []
+        var openBracketCount: Int = 0
+        let openBracketRegex = "\\}"
+        let closeBracketRegex = "\\{"
+        let isClosureRegex = "->"
         
+        var enumCase: [(key: String, value: String)] = []
+
         while startLine >= 0 {
             guard let lineText = invocation.buffer.lines[startLine] as? String else { startLine -= 1; continue }
-            if lineText.isMatch(endRegex) {
+            
+            openBracketCount += lineText.match(regex: openBracketRegex).count
+            if openBracketCount > 0 {
+                openBracketCount -= lineText.match(regex: closeBracketRegex).count
+                startLine -= 1
+                continue
+            }else if lineText.isMatch(endRegex) {
                 break
             }
-            var propertyName: String = lineText.match(regex: isPropertyRegex)
-            if propertyRegex.isEmpty {
+            guard !lineText.isMatch(isClosureRegex) else {
                 startLine -= 1
                 continue
             }
-            propertyName = propertyName.match(regex: propertyRegex).replacingOccurrences(of: ":", with: "")
+            var propertyName: String = lineText.match(regex: propertyRegex)
+            if propertyName.isEmpty {
+                startLine -= 1
+                continue
+            }
+            propertyName = propertyName.match(regex: propertyNamePartRegex).match(regex: propertyNameRegex)
             var rawValue = ""
             var previousWordIsUppercase = false
             for character in propertyName {
@@ -52,9 +67,7 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                 }
                 
             }
-            if !rawValue.isEmpty {
-                enumCase.append((key: propertyName, value: rawValue))
-            }
+            enumCase.append((key: propertyName, value: rawValue))
             startLine -= 1
         }
         
@@ -80,17 +93,16 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
             writeLine += 1
             let key = caseTuple.key
             let value = caseTuple.value
-            var text = "\(indentSpaces)\(caseIndentSpaces)case \(key)"
-            if !value.isEmpty, key != value {
-                text += " = \"\(value)\""
+            writeText = "\(indentSpaces)\(caseIndentSpaces)case \(key)"
+            if key != value, !value.isEmpty {
+                writeText += " = \"\(value)\""
             }
-            writeText = text
             invocation.buffer.lines.insert(writeText, at: writeLine)
             updateSelectionIndexs.append(writeLine)
         }
-        let endText = "\(indentSpaces)}"
+        writeText = "\(indentSpaces)}"
         writeLine += 1
-        invocation.buffer.lines.insert(endText, at: writeLine)
+        invocation.buffer.lines.insert(writeText, at: writeLine)
         
         let textRanges = updateSelectionIndexs.map { (index) -> XCSourceTextRange in
             let sourceTextRange = XCSourceTextRange()
@@ -98,7 +110,6 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
             sourceTextRange.end = XCSourceTextPosition(line: index, column: 0)
             return sourceTextRange
         }
-        
         
         invocation.buffer.selections.setArray(textRanges)
         
