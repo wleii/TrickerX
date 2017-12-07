@@ -1,0 +1,31 @@
+#!/bin/sh
+
+cd ..
+
+projectPath=$(pwd)
+appFilePath=${projectPath}/app/TrickerX.app
+
+if [ -d "$appFilePath" ]
+then
+	echo "success find $appFilePath"
+else
+	echo "$appFilePath not found."
+	exit 1
+fi
+
+# clean
+rm -rf $projectPath/app/TrickerX.dmg
+rm -rf $projectPath/app/Applications
+rm -rf $projectPath/app/*.xcarchive
+rm -rf $projectPath/app/*.zip
+
+cd $projectPath/app
+ln -s /Applications Applications
+cd ..
+echo "Link Applications success"
+
+hdiutil create $projectPath/app/TrickerX.dmg -volname "New Disk Image" -srcfolder $projectPath/app
+
+# clean
+rm -rf $projectPath/app/TrickerX.app 
+rm -rf $projectPath/app/Applications
