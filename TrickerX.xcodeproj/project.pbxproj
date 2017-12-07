@@ -23,6 +23,7 @@
 		71C885911FD8F33B0045737E /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719DB98E1FD818730080CD22 /* StringExtension.swift */; };
 		71C885931FD8F34D0045737E /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C885921FD8F34D0045737E /* Regex.swift */; };
 		71C885941FD8F34D0045737E /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C885921FD8F34D0045737E /* Regex.swift */; };
+		71C885951FD912C40045737E /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719DB9901FD8187D0080CD22 /* OptionalExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -328,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71C885951FD912C40045737E /* OptionalExtension.swift in Sources */,
 				71C885901FD8F2F70045737E /* CodableRegexTests.swift in Sources */,
 				71C885941FD8F34D0045737E /* Regex.swift in Sources */,
 				71C885841FD8F2800045737E /* TrickerXTests.swift in Sources */,

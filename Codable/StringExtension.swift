@@ -15,17 +15,24 @@ extension String {
     }
     
     func match(regex: String) -> String? {
+        let matchList: [String] = match(regex: regex)
+        return matchList.first
+    }
+    
+    func match(regex: String) -> [String] {
+        if isEmpty {
+            return []
+        }
         do {
             let regex = try NSRegularExpression(pattern: regex, options: [])
-            if let result = regex.firstMatch(in: self, options: [], range: NSRange.init(startIndex..., in: self)) {
+            let results = regex.matches(in: self, options: [], range: NSRange.init(startIndex..., in: self))
+            return results.map({ (result) -> String in
                 let range = Range.init(result.range, in: self)
                 return String(self[range!])
-            }else {
-                return nil
-            }
+            })
         }
         catch {
-            return nil
+            return []
         }
     }
     

@@ -112,8 +112,18 @@ private extension Command {
                 
                 // parse property name
                 let propertyName = codablePropertyLine.match(regex: .codablePropertyName).unwrappedOrEmpty
-                let propertyRawValue = propertyName.snakeCased().unwrappedOrEmpty
-                enumCase.append((key: propertyName, value: propertyRawValue))
+
+                let rawValue: String
+                // check: is exist custom key?
+                if let customRawValue = codablePropertyLine.match(regex: .customKey)?.match(regex: "\\w+"), !customRawValue.isEmpty {
+                    rawValue = customRawValue
+                    let splitStrings = codablePropertyLine.split(separator: "/")
+                    invocation.buffer.lines[startLine] = splitStrings.first!
+                }else {
+                    let propertyRawValue = propertyName.snakeCased().unwrappedOrEmpty
+                    rawValue = propertyRawValue
+                }
+                enumCase.append((key: propertyName, value: rawValue))
                 
                 // coontinue
                 startLine -= 1
@@ -136,7 +146,7 @@ private extension Command {
             let startSelection = textRange.start.line
             let updateSelectionIndexs: [Int] = Array(startLine...startLine+(enumCase.count + 2))
             
-            let indentSpaces = (invocation.buffer.lines[textRange.start.line] as! String).match(regex: .spaceOrTabIndentRegex).unwrappedOrEmpty.replacingOccurrences(of: "\n", with: "")
+            let indentSpaces = (invocation.buffer.lines[textRange.start.line] as! String).match(regex: .spaceOrTabIndent).unwrappedOrEmpty.replacingOccurrences(of: "\n", with: "")
             let caseIndentSpaces = repeatElement(" ", count: invocation.buffer.indentationWidth).joined()
             enumCase = enumCase.sorted(by: {$0.0 < $1.1})
             var lines = enumCase.reduce("\(indentSpaces)enum CodingKeys: String, CodingKey {\n") { (result, dict) -> String in

@@ -12,9 +12,11 @@ enum Regex: String {
     case codableModelStartLine = ".+\\s*:\\s*.*Codable.*\\{"
     case openBracket = "\\{"
     case closeBracket = "\\}"
+    case closureOrTuple = "\\(.*\\)"
+    case spaceOrTabIndent = "^(\\s|\\t)*"
+    case toggleComments = "^\\s*\\/\\/"
+
     case codablePropertyLine = ".*(let|var)\\s+\\w+\\s*(:|=).+"
     case codablePropertyName = "\\w+(?=\\s*:)"
-    case closureOrTuple = "\\(.*\\)"
-    case spaceOrTabIndentRegex = "^(\\s|\\t)*"
-    case toggleComments = "^\\s*\\/\\/"
+    case customKey = "\\/\\/\\s*\\w+"
 }

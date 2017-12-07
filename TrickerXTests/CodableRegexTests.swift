@@ -31,6 +31,19 @@ class CodableRegexTests: XCTestCase {
         XCTAssertNil(toggleComments.match(regex: .toggleComments))
 
         
+        var customKeys = "private let customKey: String //my_custom_key"
+        XCTAssertNotNil(customKeys.match(regex: .customKey))
+        XCTAssertEqual(customKeys.match(regex: .customKey)?.match(regex: "\\w+").unwrappedOrEmpty, "my_custom_key")
+        
+        XCTAssertNotNil(customKeys.match(regex: .codablePropertyLine))
+        XCTAssertEqual(customKeys.match(regex: .codablePropertyLine)?.match(regex: .codablePropertyName), "customKey")
+        let splitStrings = customKeys.split(separator: "/")
+        XCTAssertEqual(splitStrings.first, "private let customKey: String ")
+        
+        customKeys = "private let customKey: String //"
+        XCTAssertNil(customKeys.match(regex: .customKey))
+
+        
     }
 
     func testPerformanceExample() {
