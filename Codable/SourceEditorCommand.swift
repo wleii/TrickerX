@@ -83,11 +83,14 @@ private extension Command {
                 }
                 
                 // find { or }
-                bracketCount += lineText.match(regex: .closeBracket).unwrappedOrEmpty.count
-                bracketCount -= lineText.match(regex: .openBracket).unwrappedOrEmpty.count
+                let closeBracket: [String] = lineText.match(regex: Regex.closeBracket.rawValue)
+                let openBracket: [String] = lineText.match(regex: Regex.openBracket.rawValue)
                 
+                bracketCount += closeBracket.count
+           
                 if bracketCount > 0 {
                     // not full {} continue ⬆️ parse
+                    bracketCount -= openBracket.count
                     startLine -= 1
                     continue
                 }
