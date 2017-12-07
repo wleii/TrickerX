@@ -18,6 +18,11 @@
 		71B852D11FC83A970084F597 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B852D01FC83A970084F597 /* SourceEditorExtension.swift */; };
 		71B852D31FC83A970084F597 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B852D21FC83A970084F597 /* SourceEditorCommand.swift */; };
 		71B852D81FC83A970084F597 /* Codable.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 71B852CD1FC83A970084F597 /* Codable.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		71C885841FD8F2800045737E /* TrickerXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C885831FD8F2800045737E /* TrickerXTests.swift */; };
+		71C885901FD8F2F70045737E /* CodableRegexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C8858E1FD8F2F70045737E /* CodableRegexTests.swift */; };
+		71C885911FD8F33B0045737E /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719DB98E1FD818730080CD22 /* StringExtension.swift */; };
+		71C885931FD8F34D0045737E /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C885921FD8F34D0045737E /* Regex.swift */; };
+		71C885941FD8F34D0045737E /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C885921FD8F34D0045737E /* Regex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +32,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 71B852CC1FC83A970084F597;
 			remoteInfo = Codable;
+		};
+		71C885861FD8F2800045737E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 71B852851FC834F80084F597 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 71B8528C1FC834F80084F597;
+			remoteInfo = TrickerX;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -61,6 +73,11 @@
 		71B852D21FC83A970084F597 /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
 		71B852D41FC83A970084F597 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		71B852D51FC83A970084F597 /* Codable.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Codable.entitlements; sourceTree = "<group>"; };
+		71C885811FD8F2800045737E /* TrickerXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrickerXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		71C885831FD8F2800045737E /* TrickerXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrickerXTests.swift; sourceTree = "<group>"; };
+		71C885851FD8F2800045737E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		71C8858E1FD8F2F70045737E /* CodableRegexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableRegexTests.swift; sourceTree = "<group>"; };
+		71C885921FD8F34D0045737E /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +96,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		71C8857E1FD8F2800045737E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -87,6 +111,7 @@
 			children = (
 				71B8528F1FC834F80084F597 /* TrickerX */,
 				71B852CF1FC83A970084F597 /* Codable */,
+				71C885821FD8F2800045737E /* TrickerXTests */,
 				71B852A51FC835610084F597 /* Frameworks */,
 				71B8528E1FC834F80084F597 /* Products */,
 			);
@@ -97,6 +122,7 @@
 			children = (
 				71B8528D1FC834F80084F597 /* TrickerX.app */,
 				71B852CD1FC83A970084F597 /* Codable.appex */,
+				71C885811FD8F2800045737E /* TrickerXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,10 +156,21 @@
 				719DB98C1FD817920080CD22 /* Command.swift */,
 				719DB98E1FD818730080CD22 /* StringExtension.swift */,
 				719DB9901FD8187D0080CD22 /* OptionalExtension.swift */,
+				71C885921FD8F34D0045737E /* Regex.swift */,
 				71B852D41FC83A970084F597 /* Info.plist */,
 				71B852D51FC83A970084F597 /* Codable.entitlements */,
 			);
 			path = Codable;
+			sourceTree = "<group>";
+		};
+		71C885821FD8F2800045737E /* TrickerXTests */ = {
+			isa = PBXGroup;
+			children = (
+				71C885831FD8F2800045737E /* TrickerXTests.swift */,
+				71C8858E1FD8F2F70045737E /* CodableRegexTests.swift */,
+				71C885851FD8F2800045737E /* Info.plist */,
+			);
+			path = TrickerXTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,6 +212,24 @@
 			productReference = 71B852CD1FC83A970084F597 /* Codable.appex */;
 			productType = "com.apple.product-type.xcode-extension";
 		};
+		71C885801FD8F2800045737E /* TrickerXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71C885881FD8F2800045737E /* Build configuration list for PBXNativeTarget "TrickerXTests" */;
+			buildPhases = (
+				71C8857D1FD8F2800045737E /* Sources */,
+				71C8857E1FD8F2800045737E /* Frameworks */,
+				71C8857F1FD8F2800045737E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				71C885871FD8F2800045737E /* PBXTargetDependency */,
+			);
+			name = TrickerXTests;
+			productName = TrickerXTests;
+			productReference = 71C885811FD8F2800045737E /* TrickerXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -193,6 +248,11 @@
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
 					};
+					71C885801FD8F2800045737E = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 71B8528C1FC834F80084F597;
+					};
 				};
 			};
 			buildConfigurationList = 71B852881FC834F80084F597 /* Build configuration list for PBXProject "TrickerX" */;
@@ -210,6 +270,7 @@
 			targets = (
 				71B8528C1FC834F80084F597 /* TrickerX */,
 				71B852CC1FC83A970084F597 /* Codable */,
+				71C885801FD8F2800045737E /* TrickerXTests */,
 			);
 		};
 /* End PBXProject section */
@@ -225,6 +286,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		71B852CB1FC83A970084F597 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71C8857F1FD8F2800045737E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -250,8 +318,20 @@
 				719DB9911FD8187D0080CD22 /* OptionalExtension.swift in Sources */,
 				719DB98F1FD818730080CD22 /* StringExtension.swift in Sources */,
 				71B852D11FC83A970084F597 /* SourceEditorExtension.swift in Sources */,
+				71C885931FD8F34D0045737E /* Regex.swift in Sources */,
 				71B852D31FC83A970084F597 /* SourceEditorCommand.swift in Sources */,
 				719DB98D1FD817920080CD22 /* Command.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71C8857D1FD8F2800045737E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71C885901FD8F2F70045737E /* CodableRegexTests.swift in Sources */,
+				71C885941FD8F34D0045737E /* Regex.swift in Sources */,
+				71C885841FD8F2800045737E /* TrickerXTests.swift in Sources */,
+				71C885911FD8F33B0045737E /* StringExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +342,11 @@
 			isa = PBXTargetDependency;
 			target = 71B852CC1FC83A970084F597 /* Codable */;
 			targetProxy = 71B852D61FC83A970084F597 /* PBXContainerItemProxy */;
+		};
+		71C885871FD8F2800045737E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 71B8528C1FC834F80084F597 /* TrickerX */;
+			targetProxy = 71C885861FD8F2800045737E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -451,6 +536,38 @@
 			};
 			name = Release;
 		};
+		71C885891FD8F2800045737E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = ZRW9N2A955;
+				INFOPLIST_FILE = TrickerXTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rayternet.TrickerXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrickerX.app/Contents/MacOS/TrickerX";
+			};
+			name = Debug;
+		};
+		71C8858A1FD8F2800045737E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = ZRW9N2A955;
+				INFOPLIST_FILE = TrickerXTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rayternet.TrickerXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrickerX.app/Contents/MacOS/TrickerX";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -477,6 +594,15 @@
 			buildConfigurations = (
 				71B852DA1FC83A970084F597 /* Debug */,
 				71B852DB1FC83A970084F597 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		71C885881FD8F2800045737E /* Build configuration list for PBXNativeTarget "TrickerXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71C885891FD8F2800045737E /* Debug */,
+				71C8858A1FD8F2800045737E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

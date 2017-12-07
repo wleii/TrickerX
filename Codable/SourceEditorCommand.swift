@@ -59,18 +59,9 @@ enum TrickerXError: LocalizedError, CustomDebugStringConvertible, CustomStringCo
     }
 }
 
-enum Regex: String {
-    case codableModelStartLine = ".+\\s*:\\s*.*Codable.*\\{"
-    case openBracket = "\\{"
-    case closeBracket = "\\}"
-    case codablePropertyLine = ".*(let|var)\\s+\\w+\\s*(:|=).+"
-    case codablePropertyName = "\\w+(?=\\s*:)"
-    case closureOrTuple = "\\(.*\\)"
-    case spaceOrTabRegex = "^(\\s|\\t)*"
-}
-
 
 private extension Command {
+    
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
         switch self {
         case .makeCodingKeys:
@@ -83,6 +74,13 @@ private extension Command {
             
             while startLine >= 0 {
                 guard let lineText = invocation.buffer.lines[startLine] as? String else { startLine -= 1; continue }
+                
+                
+                // toggle comments
+                if !lineText.match(regex: .toggleComments).isNilOrEmpty {
+                    startLine -= 1
+                    continue
+                }
                 
                 // find { or }
                 bracketCount += lineText.match(regex: .closeBracket).unwrappedOrEmpty.count
@@ -138,7 +136,7 @@ private extension Command {
             let startSelection = textRange.start.line
             let updateSelectionIndexs: [Int] = Array(startLine...startLine+(enumCase.count + 2))
             
-            let indentSpaces = (invocation.buffer.lines[textRange.start.line] as! String).match(regex: .spaceOrTabRegex).unwrappedOrEmpty.replacingOccurrences(of: "\n", with: "")
+            let indentSpaces = (invocation.buffer.lines[textRange.start.line] as! String).match(regex: .spaceOrTabIndentRegex).unwrappedOrEmpty.replacingOccurrences(of: "\n", with: "")
             let caseIndentSpaces = repeatElement(" ", count: invocation.buffer.indentationWidth).joined()
             enumCase = enumCase.sorted(by: {$0.0 < $1.1})
             var lines = enumCase.reduce("\(indentSpaces)enum CodingKeys: String, CodingKey {\n") { (result, dict) -> String in
