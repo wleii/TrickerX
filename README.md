@@ -12,19 +12,19 @@ An Xcode9+ Extension which make [CodingKeys](https://developer.apple.com/documen
 TrickerX also support the following way to define keys, e.g.
 ```swift
 struct CustomKey: Codable {
-	// TrickerX will parsing the syntax //my_custom_key 
-	private let key: String //my_custom_key
+    // TrickerX will parsing the syntax //my_custom_key 
+    private let key: String //my_custom_key
 }
 ```
 result
 ```swift
 struct CustomKey: Codable {
-	// TrickerX will parsing the syntax //my_custom_key 
-	private let key: String 
+    // TrickerX will parsing the syntax //my_custom_key 
+    private let key: String 
 
-	enum CodingKeys: String, Codable {
-	    case key = "my_custom_key"
-	}
+    enum CodingKeys: String, Codable {
+        case key = "my_custom_key"
+    }
 }
 ```
 
