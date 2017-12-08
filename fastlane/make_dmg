@@ -24,7 +24,7 @@ ln -s /Applications Applications
 cd ..
 echo "Link Applications success"
 
-hdiutil create $projectPath/app/TrickerX.dmg -volname "New Disk Image" -srcfolder $projectPath/app
+hdiutil create $projectPath/app/TrickerX.dmg -volname "TrickerX" -srcfolder $projectPath/app
 
 # clean
 rm -rf $projectPath/app/TrickerX.app 
