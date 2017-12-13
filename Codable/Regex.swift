@@ -9,7 +9,7 @@
 import Foundation
 
 enum Regex: String {
-    case codableModelStartLine = ".+\\s*:\\s*.*Codable.*\\{"
+    case codableModelStartLine = ".+\\s*:\\s*.*(Codable|Decodable|Encodable).*\\{"
     case openBracket = "\\{"
     case closeBracket = "\\}"
     case closureOrTuple = "\\(.*\\)"

@@ -23,7 +23,8 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
 
 private let Github = "https://github.com/wleii/TrickerX"
 
-enum TrickerXError: LocalizedError, CustomDebugStringConvertible, CustomStringConvertible {
+enum TrickerXError: CustomDebugStringConvertible, CustomStringConvertible {
+    case noSelectionFound
     case notFoundCodableModel
     case codablePropertyEmpty
     
@@ -33,29 +34,25 @@ enum TrickerXError: LocalizedError, CustomDebugStringConvertible, CustomStringCo
     
     var description: String {
         switch self {
-        case .notFoundCodableModel:
-            return "Not found codable model"
-        case .codablePropertyEmpty:
-            return "Not found available codable property"
-        }
-    }
-    var debugDescription: String {
-        switch self {
+        case .noSelectionFound:
+            return "Not found selection line where to make CodingKeys"
         case .notFoundCodableModel:
             return "Not found codable model. Please add codable protocol where your model want to inherit"
         case .codablePropertyEmpty:
             return "Not found available codable properties. If you have a doubt about this, please check the documents: \(Github)"
-        }
+        }    }
+    var debugDescription: String {
+        return description
+    }
+    
+    private var errorCode: Int {
+        return 404
     }
     
     var asNSError: NSError {
         let domain = "com.rayternet.codable.error"
-        switch self {
-        case .notFoundCodableModel:
-            return NSError(domain: domain, code: 401, userInfo: [NSLocalizedDescriptionKey: self.debugDescription])
-        case .codablePropertyEmpty:
-            return NSError(domain: domain, code: 402, userInfo: [NSLocalizedDescriptionKey: self.debugDescription])
-        }
+        let userInfo = [NSLocalizedDescriptionKey: description]
+        return NSError(domain: domain, code: errorCode, userInfo: userInfo)
     }
 }
 
@@ -65,7 +62,10 @@ private extension Command {
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
         switch self {
         case .makeCodingKeys:
-            let textRange = invocation.buffer.selections.firstObject as! XCSourceTextRange
+            guard let textRange = invocation.buffer.selections.firstObject as? XCSourceTextRange else {
+                completionHandler(TrickerXError.noSelectionFound.asNSError)
+                return
+            }
             var startLine = textRange.start.line
             
             var bracketCount: Int = 0
