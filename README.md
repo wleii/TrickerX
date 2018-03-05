@@ -28,11 +28,5 @@ struct CustomKey: Codable {
 }
 ```
 
-## Suggestion
-If you have any suggestions, please let me know.
-
-## Welcome PR
-:]
-
 ## License
 MIT
