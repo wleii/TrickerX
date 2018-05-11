@@ -20,7 +20,9 @@ class SourceEditorExtension: NSObject, XCSourceEditorExtension {
     var commandDefinitions: [[XCSourceEditorCommandDefinitionKey: Any]] {
         // If your extension needs to return a collection of command definitions that differs from those in its Info.plist, implement this optional property getter.
         let className = SourceEditorCommand.className()
-        let commaneds: [Command] = [.makeCodingKeys , .readme]
+        let commaneds: [Command] = [.makeCodingKeys(sorting: false),
+                                    .makeCodingKeys(sorting: true),
+                                    .readme]
         
         return commaneds.map({ (command) -> [XCSourceEditorCommandDefinitionKey: Any] in
             return  [

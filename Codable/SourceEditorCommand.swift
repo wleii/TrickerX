@@ -61,7 +61,7 @@ private extension Command {
     
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
         switch self {
-        case .makeCodingKeys:
+        case .makeCodingKeys(let isSortingKey):
             guard let textRange = invocation.buffer.selections.firstObject as? XCSourceTextRange else {
                 completionHandler(TrickerXError.noSelectionFound.asNSError)
                 return
@@ -151,7 +151,11 @@ private extension Command {
             
             let indentSpaces = (invocation.buffer.lines[textRange.start.line] as! String).match(regex: .spaceOrTabIndent).unwrappedOrEmpty.replacingOccurrences(of: "\n", with: "")
             let caseIndentSpaces = repeatElement(" ", count: invocation.buffer.indentationWidth).joined()
-            enumCase = enumCase.sorted(by: {$0.0 < $1.1})
+            if isSortingKey {
+                enumCase = enumCase.sorted(by: {$0.0 < $1.1})
+            }else {
+                enumCase = enumCase.reversed()
+            }
             var lines = enumCase.reduce("\(indentSpaces)enum CodingKeys: String, CodingKey {\n") { (result, dict) -> String in
                 if dict.key != dict.value {
                     return result.appending("\(indentSpaces)\(caseIndentSpaces)case \(dict.key) = \"\(dict.value)\"\n")
