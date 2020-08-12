@@ -27,6 +27,9 @@ struct CustomKey: Codable {
     }
 }
 ```
+## Contributes
+
+Welcome :]
 
 ## License
 MIT
